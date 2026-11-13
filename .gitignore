@@ -1,6 +1,8 @@
-backend/target/
-backend/data/
-*.log
+node_modules/
+target/
+dist/
+build/
 .env
 .idea/
 .vscode/
+backend/data/
