@@ -1,0 +1,1 @@
+package com.adityansh.zerodha.repository; import com.adityansh.zerodha.entity.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface HoldingRepository extends JpaRepository<Holding,Long>{ List<Holding> findByUser(User user); Optional<Holding> findByUserAndStock(User user,Stock stock); }

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeNest | Trading Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">TradeNest</div>
+    <div class="nav-links">
+        <a href="#marketSection">Market</a>
+        <a href="#holdingsSection">Portfolio</a>
+        <a href="#insightsSection">Insights</a>
+        <a href="#analyticsSection">Analytics</a>
+        <a href="#whatIfSection">What-If</a>
+        <a href="#quantSection">Quant Lab</a>
+    </div>
+    <div class="user-section">
+        <span id="username">User</span>
+        <button id="logoutBtn">Logout</button>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="welcome">
+        <div>
+            <span class="eyebrow">VIRTUAL TRADING LAB</span>
+            <h1>Trade smarter with TradeNest.</h1>
+            <p>Simulate trades, watch your portfolio move, and understand the risk behind every decision.</p>
+        </div>
+        <div class="status-pill"><span class="status-dot"></span><span id="marketStatus">Market Simulator Active</span></div>
+    </section>
+
+    <section class="summary-grid">
+        <div class="card"><div class="card-icon">₹</div><div><p>Available Balance</p><h2 id="cashBalance">₹0.00</h2><span class="card-description">Cash available for trading</span></div></div>
+        <div class="card"><div class="card-icon">◈</div><div><p>Portfolio Value</p><h2 id="portfolioValue">₹0.00</h2><span class="card-description">Live simulated market value</span></div></div>
+        <div class="card"><div class="card-icon">↗</div><div><p>Total P&amp;L</p><h2 id="totalPnL">₹0.00</h2><span class="card-description">Unrealized profit / loss</span></div></div>
+    </section>
+
+    <section class="section insights-section" id="insightsSection">
+        <div class="section-header">
+            <div><span class="section-kicker">SMART RISK ENGINE</span><h2>Portfolio Insights</h2><p>Automated diversification and concentration analysis.</p></div>
+            <span class="insight-badge">Rules + HHI</span>
+        </div>
+        <div class="insights-content">
+            <div class="insight-score">
+                <div class="score-ring" id="scoreRing"><div><strong id="diversificationScore">—</strong><span>/ 100</span></div></div>
+                <div class="score-copy"><span class="muted-label">DIVERSIFICATION SCORE</span><h3 id="scoreTitle">Calculating...</h3><p id="riskMessage">Analyzing your portfolio...</p></div>
+            </div>
+            <div class="insight-grid">
+                <div class="insight-card"><span class="muted-label">CASH ALLOCATION</span><strong id="cashPercentage">0%</strong><div class="meter"><span id="cashMeter"></span></div></div>
+                <div class="insight-card"><span class="muted-label">BEST HOLDING</span><strong id="bestHolding">—</strong><span id="bestHoldingPnl" class="positive">—</span></div>
+                <div class="insight-card"><span class="muted-label">WORST HOLDING</span><strong id="worstHolding">—</strong><span id="worstHoldingPnl" class="negative">—</span></div>
+            </div>
+            <div class="allocation-panel"><div class="allocation-header"><div><span class="muted-label">SECTOR ALLOCATION</span><h3>Where your portfolio is concentrated</h3></div><span id="allocationTotal" class="muted-label">0%</span></div><div id="sectorAllocation" class="allocation-list"></div></div>
+        </div>
+    </section>
+
+    <section class="section" id="marketSection">
+        <div class="section-header"><div><span class="section-kicker">SIMULATED MARKET</span><h2>Market</h2><p>Prices move automatically every minute in the trading simulation.</p></div><input type="text" id="stockSearch" placeholder="Search symbol or company..." autocomplete="off"></div>
+        <div class="table-container"><table><thead><tr><th>Symbol</th><th>Company</th><th>Sector</th><th>Price</th><th>Change</th><th>Action</th></tr></thead><tbody id="stockTableBody"><tr><td colspan="6" class="empty">Loading stocks...</td></tr></tbody></table></div>
+    </section>
+
+    <section class="section" id="holdingsSection">
+        <div class="section-header"><div><span class="section-kicker">PORTFOLIO</span><h2>My Holdings</h2><p>Current positions and mark-to-market P&amp;L.</p></div></div>
+        <div class="table-container"><table><thead><tr><th>Stock</th><th>Quantity</th><th>Avg. Price</th><th>Current Price</th><th>P&amp;L</th></tr></thead><tbody id="holdingsTableBody"><tr><td colspan="5" class="empty">Loading portfolio...</td></tr></tbody></table></div>
+    </section>
+
+    <section class="section analytics-section" id="analyticsSection">
+        <div class="section-header"><div><span class="section-kicker">TRADING ANALYTICS</span><h2>Activity Intelligence</h2><p>Understand how you trade, not just what you own.</p></div></div>
+        <div class="analytics-grid">
+            <div class="stat-card"><span>Total Orders</span><strong id="totalOrders">0</strong></div>
+            <div class="stat-card"><span>Buy Orders</span><strong id="buyOrders">0</strong></div>
+            <div class="stat-card"><span>Sell Orders</span><strong id="sellOrders">0</strong></div>
+            <div class="stat-card"><span>Most Traded</span><strong id="mostTraded">—</strong></div>
+            <div class="stat-card"><span>Buy Volume</span><strong id="buyVolume">₹0.00</strong></div>
+            <div class="stat-card"><span>Sell Volume</span><strong id="sellVolume">₹0.00</strong></div>
+            <div class="stat-card"><span>Realized P&amp;L</span><strong id="realizedPnl">₹0.00</strong></div>
+            <div class="stat-card"><span>Open Shares</span><strong id="openShareCount">0</strong></div>
+        </div>
+    </section>
+
+    <section class="section whatif-section" id="whatIfSection">
+        <div class="section-header"><div><span class="section-kicker">SCENARIO LAB</span><h2>What-If Simulator</h2><p>See how a hypothetical price move could affect your portfolio before you trade.</p></div></div>
+        <div class="whatif-layout">
+            <div class="whatif-form">
+                <label for="whatIfSymbol">Stock</label>
+                <select id="whatIfSymbol"></select>
+                <label for="whatIfChange">Hypothetical price change</label>
+                <div class="percent-input"><input id="whatIfChange" type="number" value="10" step="0.5"><span>%</span></div>
+                <button id="runWhatIf" class="primary-btn">Run Simulation</button>
+            </div>
+            <div class="whatif-result" id="whatIfResult">
+                <div class="scenario-empty"><strong>Scenario ready</strong><span>Choose a stock and price movement to see the projected impact.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section quant-section" id="quantSection">
+        <div class="section-header">
+            <div>
+                <span class="section-kicker">QUANT RESEARCH LAB</span>
+                <h2>Strategy Backtester</h2>
+                <p>Compare systematic strategies on a deterministic simulated price history before risking virtual capital.</p>
+            </div>
+            <span class="insight-badge">SMA • Momentum • Buy &amp; Hold</span>
+        </div>
+
+        <div class="quant-controls">
+            <div class="quant-control">
+                <label for="backtestSymbol">Instrument</label>
+                <select id="backtestSymbol"></select>
+            </div>
+            <div class="quant-control">
+                <label for="backtestStrategy">Strategy</label>
+                <select id="backtestStrategy">
+                    <option value="BUY_HOLD">Buy &amp; Hold</option>
+                    <option value="SMA_CROSSOVER">SMA Crossover (5/20)</option>
+                    <option value="MOMENTUM">10-Day Momentum</option>
+                </select>
+            </div>
+            <div class="quant-control">
+                <label for="backtestCapital">Initial Capital</label>
+                <input id="backtestCapital" type="number" min="1000" step="1000" value="100000">
+            </div>
+            <div class="quant-control">
+                <label for="backtestDays">Lookback</label>
+                <select id="backtestDays">
+                    <option value="60">60 days</option>
+                    <option value="120" selected>120 days</option>
+                    <option value="252">252 days</option>
+                </select>
+            </div>
+            <button id="runBacktest" class="primary-btn quant-run-btn">Run Backtest</button>
+        </div>
+
+        <div id="quantResult" class="quant-result">
+            <div class="scenario-empty"><strong>Quant lab ready</strong><span>Choose a strategy and run a backtest to see return, risk, drawdown and equity curve.</span></div>
+        </div>
+    </section>
+
+    <section class="section" id="ordersSection">
+        <div class="section-header"><div><span class="section-kicker">ACTIVITY</span><h2>Recent Orders</h2><p>Your latest virtual trading activity.</p></div></div>
+        <div class="table-container"><table><thead><tr><th>Stock</th><th>Type</th><th>Quantity</th><th>Price</th><th>Total</th><th>Date</th></tr></thead><tbody id="ordersTableBody"><tr><td colspan="6" class="empty">Loading orders...</td></tr></tbody></table></div>
+    </section>
+</main>
+
+<div id="tradeModal" class="modal hidden"><div class="modal-content"><button id="closeModal" class="modal-close" aria-label="Close">&times;</button><span class="section-kicker">TRADE</span><h2 id="tradeTitle">Buy Stock</h2><p id="tradeStockInfo" class="trade-stock-info">RELIANCE</p><div class="trade-price"><span>Current Price</span><strong id="tradePrice">₹0.00</strong></div><div class="form-group"><label for="tradeQuantity">Quantity</label><input type="number" id="tradeQuantity" min="1" step="1" placeholder="Enter quantity"></div><div class="trade-summary"><span>Estimated Total</span><strong id="tradeTotal">₹0.00</strong></div><p id="tradeError" class="trade-error"></p><button id="confirmTrade" class="trade-confirm-btn">Confirm Buy</button></div></div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

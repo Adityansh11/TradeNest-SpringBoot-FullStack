@@ -1,0 +1,1 @@
+package com.adityansh.zerodha.repository; import com.adityansh.zerodha.entity.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface OrderRepository extends JpaRepository<Order,Long>{ List<Order> findByUserOrderByCreatedAtDesc(User user); }

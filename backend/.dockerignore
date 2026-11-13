@@ -1,0 +1,6 @@
+.idea
+.vscode
+target/classes
+target/test-classes
+data
+*.log

@@ -1,0 +1,2 @@
+package com.adityansh.zerodha.controller; import com.adityansh.zerodha.entity.Stock; import com.adityansh.zerodha.repository.StockRepository; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/api/stocks") public class StockController {private final StockRepository r; public StockController(StockRepository r){this.r=r;} @GetMapping public List<Stock> all(){return r.findAll();} @GetMapping("/{symbol}") public Stock one(@PathVariable String symbol){return r.findBySymbol(symbol.toUpperCase()).orElseThrow();}}
